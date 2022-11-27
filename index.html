@@ -1,37 +1,128 @@
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
-    <title>Knight Travails</title>
-    <meta charset='utf-8'/>
-    <meta name='author' content='Donny C'/>
-    <meta name='description' content='An algorithm to determine the shortest path a knight can take from one spot to another using binary trees'/>
-    <meta name='keywords' content='Algorithm, Binary trees, knight travails'/>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-    <link rel='stylesheet' href='./style.css'/>
-    <script type="module">
-        import init from './script.mjs';
-        window.addEventListener('load', init);
-    </script>
-  </head>
-  <body>
-    
-    <!--,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
-    <!--..dddddddd...................................................................................................cccccc............................-->
-    <!--..dddd.dddd...............................................................................................ccccccccccc..........................-->
-    <!--..dddd..dddd.............................................................................................ccc........ccc........................-->
-    <!--..dddd....dddd.........................................................................................ccc...........ccc.......................-->
-    <!--..dddd.....dddd.......................................................................................ccc......................................-->
-    <!--..dddd.......dddd....................................................................................ccc.......................................-->
-    <!--..dddd........dddd..........ooooooo.......nnn..nnnnnn........nnn..nnnnnn.......yyy......yyy..........ccc.......................................-->
-    <!--..dddd..........dddd......ooooooooooo.....nnnnnnnnnnnnn......nnnnnnnnnnnnn.....yyy......yyy..........ccc.......................................-->
-    <!--..dddd...........dddd....ooo.......ooo....nnnn.......nnn.....nnnn......nnn.....yyy......yyy...........ccc............ccc.......................-->
-    <!--..dddd...........dddd....ooo.......ooo....nnn........nnn.....nnn.......nnn.....yyy......yyy.............ccc........ccc.........................-->
-    <!--..dddddddddddddddddddd....ooooooooooo.....nnn........nnn.....nnn.......nnn......yyy...yyyyy...............ccccccccccc..........................-->
-    <!--..dddddddddddddddddddd......ooooooo.......nnn........nnn.....nnn.......nnn.......yyyyyy.yyy.................cccccc.............................-->
-    <!--........................................................................................yyy....................................................-->
-    <!--........................................................................................yyy....................................................-->
-    <!--........................................................................................yyy....................................................-->
-    <!--,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
 
-  </body>
+<head>
+  <title>Knight Travails</title>
+  <meta charset='utf-8' />
+  <meta name='author' content='Donny C' />
+  <meta name='description'
+    content='An algorithm to determine the shortest path a knight can take from one spot to another using binary trees' />
+  <meta name='keywords' content='Algorithm, Binary trees, knight travails' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <link rel='stylesheet' href='./style.css' />
+  <script type="module">
+    import init from './script.mjs';
+    window.addEventListener('load', init);
+  </script>
+</head>
+
+<body>
+
+  <!--,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+  <!--..dddddddd...................................................................................................cccccc............................-->
+  <!--..dddd.dddd...............................................................................................ccccccccccc..........................-->
+  <!--..dddd..dddd.............................................................................................ccc........ccc........................-->
+  <!--..dddd....dddd.........................................................................................ccc...........ccc.......................-->
+  <!--..dddd.....dddd.......................................................................................ccc......................................-->
+  <!--..dddd.......dddd....................................................................................ccc.......................................-->
+  <!--..dddd........dddd..........ooooooo.......nnn..nnnnnn........nnn..nnnnnn.......yyy......yyy..........ccc.......................................-->
+  <!--..dddd..........dddd......ooooooooooo.....nnnnnnnnnnnnn......nnnnnnnnnnnnn.....yyy......yyy..........ccc.......................................-->
+  <!--..dddd...........dddd....ooo.......ooo....nnnn.......nnn.....nnnn......nnn.....yyy......yyy...........ccc............ccc.......................-->
+  <!--..dddd...........dddd....ooo.......ooo....nnn........nnn.....nnn.......nnn.....yyy......yyy.............ccc........ccc.........................-->
+  <!--..dddddddddddddddddddd....ooooooooooo.....nnn........nnn.....nnn.......nnn......yyy...yyyyy...............ccccccccccc..........................-->
+  <!--..dddddddddddddddddddd......ooooooo.......nnn........nnn.....nnn.......nnn.......yyyyyy.yyy.................cccccc.............................-->
+  <!--........................................................................................yyy....................................................-->
+  <!--........................................................................................yyy....................................................-->
+  <!--........................................................................................yyy....................................................-->
+  <!--,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+  <div id="container">
+    <div id="menu"></div>
+    <div id="board">
+      <div class="grid">
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile">&#9822;</div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
