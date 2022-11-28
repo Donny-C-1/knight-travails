@@ -43,7 +43,24 @@ body {
 }
 .tile{
     display: grid;
+    position: relative;
     place-items: center;
     line-height: 0;
     font-size: calc(var(--size) * 0.1);
+    /* isolation: isolate; */
+    overflow: hidden;
+}
+.path::after {
+    content: attr(data-step);
+    color: #555;
+    position: absolute;
+    width: 90%;
+    line-height: normal;
+    height: 90%;
+    /* inset: 3px; */
+    border-radius: 50%;
+    background-color: #999;
+    display: grid;
+    place-items: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
