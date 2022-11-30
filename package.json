@@ -1,0 +1,14 @@
+{
+  "name": "knight-travails",
+  "version": "1.0.0",
+  "description": "A simple algorithm to find the shortest path a chess knight can take to any tile on the board",
+  "private": true,
+  "main": "index.html",
+  "keywords": [
+    "knight-travails",
+    "bst",
+    "algorithms"
+  ],
+  "author": "Donny C",
+  "license": "ISC"
+}

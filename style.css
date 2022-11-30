@@ -4,28 +4,48 @@
     margin: 0;
     /* font: inherit; */
 }
+
 body {
     min-height: 100vh;
     font-size: 1rem;
 }
+
 #container {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(30em, 100%), 1fr));
+    /* grid-auto-flow: dense; */
     min-height: 100vh;
     place-items: center;
 }
+
 #menu {
     width: 100%;
-    background-color: aqua;
     height: 100%;
+    color: indigo;
+    font-family: cursive;
+    padding-inline: 1em;
+}
+
+#menu .title {
+    text-align: center;
+    padding: 1em 0 .2em;
+    font-family: cursive;
+    color: indigo;
+}
+
+#menu p {
+    font-size: 1.3em;
+    margin: 1em 0;
 }
 #board {
+    --size: clamp(10em, 100vw - 1em, 100vh - 1em);
     display: grid;
+    position: relative;
     place-items: center;
     padding: .5em;
 }
+
 .grid {
-    --size: clamp(10em, 100vw - 1em, 100vh - 1em);
     display: grid;
     width: var(--size);
     height: var(--size);
@@ -33,23 +53,27 @@ body {
     box-shadow: 0 0 10px #555;
 
 }
+
 .row {
     --dark-tile: #444;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
 }
+
 .row:nth-child(even) .tile:nth-child(even), .row:nth-child(odd) .tile:nth-child(odd) {
     background-color: var(--dark-tile);
 }
-.tile{
+
+.tile {
     display: grid;
     position: relative;
     place-items: center;
     line-height: 0;
     font-size: calc(var(--size) * 0.1);
-    /* isolation: isolate; */
     overflow: hidden;
+    transition: all .5s;
 }
+
 .path::after {
     content: attr(data-step);
     color: #555;
@@ -57,10 +81,89 @@ body {
     width: 90%;
     line-height: normal;
     height: 90%;
-    /* inset: 3px; */
     border-radius: 50%;
     background-color: #999;
     display: grid;
     place-items: center;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#board .tile.end {
+    background-color: green;
+}
+
+#knightPiece {
+    --tile-size: calc((var(--size) / 8) - .5px);
+    --length: calc(attr(data-x) * 1);
+    position: absolute;
+    display: grid;
+    place-items: center;
+    /*todo Find a way to make calculations with attributes possible*/
+    /* top: 9.5px; */
+    /* left: calc(9.5px + (var(--tile-size) * attr(data-x))); */
+    top: 9.5px;
+    left: 9px;
+    width: var(--tile-size);
+    height: var(--tile-size);
+    transition: all .4s;
+}
+
+#knightPiece[data-x="1"] {
+    left: calc(9px + (var(--tile-size) * 1));
+}
+
+#knightPiece[data-x="2"] {
+    left: calc(9px + (var(--tile-size) * 2));
+}
+
+#knightPiece[data-x="3"] {
+    left: calc(9px + (var(--tile-size) * 3));
+}
+
+#knightPiece[data-x="4"] {
+    left: calc(9px + (var(--tile-size) * 4));
+}
+
+#knightPiece[data-x="5"] {
+    left: calc(9px + (var(--tile-size) * 5));
+}
+
+#knightPiece[data-x="6"] {
+    left: calc(9px + (var(--tile-size) * 6));
+}
+
+#knightPiece[data-x="7"] {
+    left: calc(9px + (var(--tile-size) * 7));
+}
+
+#knightPiece[data-y="1"] {
+    top: calc(9.5px + (var(--tile-size) * 1));
+}
+
+#knightPiece[data-y="2"] {
+    top: calc(9.5px + (var(--tile-size) * 2));
+}
+
+#knightPiece[data-y="3"] {
+    top: calc(9.5px + (var(--tile-size) * 3));
+}
+
+#knightPiece[data-y="4"] {
+    top: calc(9.5px + (var(--tile-size) * 4));
+}
+
+#knightPiece[data-y="5"] {
+    top: calc(9.5px + (var(--tile-size) * 5));
+}
+
+#knightPiece[data-y="6"] {
+    top: calc(9.5px + (var(--tile-size) * 6));
+}
+
+#knightPiece[data-y="7"] {
+    top: calc(9.5px + (var(--tile-size) * 7));
+}
+
+#knightPiece img {
+    width: calc(var(--tile-size) * 0.58);
 }

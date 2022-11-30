@@ -2,32 +2,31 @@ export default init;
 
 function init() {
     let pos = [Math.floor(Math.random() * 8), Math.floor(Math.random() * 8)];
+    const board = document.getElementById('board');
     Knight.pos = pos;
     displayKnight(pos);
-    // console.log(pos);
-    // console.table(getNextMoves(pos));
-    // console.log('Game has started');
+
+    board.addEventListener('dblclick', moveTo);
     [...document.getElementsByClassName('tile')].forEach((elmn, index) => {
         elmn.dataset.x = index % 8;
         elmn.dataset.y = Math.floor(index * 0.125);
-        elmn.addEventListener('click', moveTo)
     });
 }
 
 const Knight = {
+    element: document.getElementById('knightPiece'),
     pos: undefined,
-    path: []
+    path: [],
+    step: 0
 }
 
 function displayKnight([x, y]) {
-    let row = document.getElementsByClassName('row')[y];
-    let tile = row.getElementsByClassName('tile')[x];
-    tile.innerHTML = "&#9822;";
+    Knight.element.dataset.x = x;
+    Knight.element.dataset.y = y;
 }
 
 function clearTile([x, y]) {
     const element = document.getElementsByClassName('row')[y].getElementsByClassName('tile')[x];
-    element.innerText = "";
     element.classList.remove('path');
 }
 
@@ -83,23 +82,48 @@ function clearPath() {
     }
 }
 
-function moveTo() {
+function moveTo(evt) {
+    if (evt.target.classList.contains('tile') === false) return;
     clearPath();
-    const finalPos = [Number(this.dataset.x), Number(this.dataset.y)];
+    const finalPos = [Number(evt.target.dataset.x), Number(evt.target.dataset.y)];
     if (Knight.pos[0] === finalPos[0] && Knight.pos[1] === finalPos[1]) {
         displayKnight(finalPos);
         return;
     }
     let path = getPath(Knight.pos, finalPos);
-    let index = 0;
-    for (let step of path) {
-        let element = document.getElementsByClassName('row')[step[1]].getElementsByClassName('tile')[step[0]];
-        element.dataset.step = index;
-        element.classList.add('path');
-        index++;
-        if (index == path.length - 1) break;
-    }
-    displayKnight(finalPos);
     Knight.path = path
     Knight.pos = finalPos;
+    Knight.element.addEventListener('transitionend', move);
+    move();
+}
+
+function move(evt) {
+    if (evt && evt.propertyName !== "top") return;
+    const step = Knight.path[Knight.step];
+    const element = gE(step);
+    element.dataset.step = Knight.step;
+    switch (Knight.step) {
+        case (Knight.path.length - 1):
+            element.classList.add('end');
+            break;
+        default:
+            element.classList.add('path');
+    }
+    displayKnight(step);
+    Knight.step++;
+    if (Knight.step < 2) move();
+    if (Knight.step == Knight.path.length) {
+        Knight.element.removeEventListener('transitionend', move);
+        Knight.step = 0;
+        setTimeout(resetTiles, 3000);
+    }
+    return;
+}
+
+function gE(step) {
+    return document.getElementsByClassName('row')[step[1]].getElementsByClassName('tile')[step[0]];
+}
+
+function resetTiles() {
+    Knight.path.forEach(step => gE(step).className = "tile");
 }
