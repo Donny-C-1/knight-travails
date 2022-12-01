@@ -6,7 +6,7 @@ function init() {
     Knight.pos = pos;
     displayKnight(pos);
 
-    board.addEventListener('dblclick', moveTo);
+    board.addEventListener('dblclick', TravailPath);
     [...document.getElementsByClassName('tile')].forEach((elmn, index) => {
         elmn.dataset.x = index % 8;
         elmn.dataset.y = Math.floor(index * 0.125);
@@ -17,7 +17,9 @@ const Knight = {
     element: document.getElementById('knightPiece'),
     pos: undefined,
     path: [],
-    step: 0
+    step: 0,
+    status: "fixed",
+    timer: null,
 }
 
 function displayKnight([x, y]) {
@@ -82,9 +84,11 @@ function clearPath() {
     }
 }
 
-function moveTo(evt) {
+function TravailPath(evt) {
+    if (Knight.status === "moving") return;
     if (evt.target.classList.contains('tile') === false) return;
-    clearPath();
+    clearTimeout(Knight.timer);
+    resetTiles();
     const finalPos = [Number(evt.target.dataset.x), Number(evt.target.dataset.y)];
     if (Knight.pos[0] === finalPos[0] && Knight.pos[1] === finalPos[1]) {
         displayKnight(finalPos);
@@ -94,6 +98,7 @@ function moveTo(evt) {
     Knight.path = path
     Knight.pos = finalPos;
     Knight.element.addEventListener('transitionend', move);
+    Knight.status = "moving";
     move();
 }
 
@@ -113,9 +118,10 @@ function move(evt) {
     Knight.step++;
     if (Knight.step < 2) move();
     if (Knight.step == Knight.path.length) {
+        setTimeout(() => Knight.status = "fixed", Math.floor(evt.elapsedTime * 1000))
         Knight.element.removeEventListener('transitionend', move);
         Knight.step = 0;
-        setTimeout(resetTiles, 3000);
+        Knight.timer = setTimeout(resetTiles, 3000);
     }
     return;
 }
