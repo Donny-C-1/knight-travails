@@ -56,7 +56,6 @@ function getNextMoves([x, y]) {
 }
 
 function getPath([startX, starty], [endX, endY]) {
-    //todo move from start pos to end pos
     const queue = [[[startX, starty]]];
     const finalPath = [];
     let currentPath;
@@ -118,7 +117,7 @@ function move(evt) {
     Knight.step++;
     if (Knight.step < 2) move();
     if (Knight.step == Knight.path.length) {
-        setTimeout(() => Knight.status = "fixed", Math.floor(evt.elapsedTime * 1000))
+        setTimeout(() => Knight.status = "fixed", Math.floor(evt.elapsedTime * 1000) + 100)
         Knight.element.removeEventListener('transitionend', move);
         Knight.step = 0;
         Knight.timer = setTimeout(resetTiles, 3000);
